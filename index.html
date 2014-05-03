@@ -42,8 +42,9 @@
               <ul class="nav">
                 <li class="active"><a href="#about">About Hack for Change</a></li>
                 <li><a href="#challenges">Challenges</a></li>
-                <li><a href="#share">Share your #hackforchange</a></li>
+                <li><a href="#share">Share</a></li>
                 <li><a href="#Contact">Contact us</a></li>
+                <li><a href="http://codeformiami.org">Code for Miami</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
           </div><!-- /.navbar-inner -->
@@ -78,11 +79,17 @@
           <!--<img class="featurette-image pull-left" src="images/community.png" width = "200" height = "144" alt="community" />-->
 
           <h2 id="challenges" class="c4mred">Challenges:</h2>
+          <p>&nbsp;</p>
+          <img class="featurette-image pull-left" src="images/flag.png" alt="flag" width="20%">
           <h3 class="c4mblue"> National Challenges</h3>
+          
           <p> National Hack for Change Challenges will be announced at <a href="http://hackforchange.org/submit-challenges-and-datasets/">hackforchange.org,</a> and you can still contribute ideas and datasets.</p>
           <p> Check out <a href="http://www.data.gov/">data.gov</a> to find all of the U.S. government's open data and come up with your own ideas!</p>
-          <br/> 
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <img class="featurette-image pull-left" src="images/palm.png" alt="palm" width="20%"> 
           <h3 class="c4mblue"> Local Challenges</h3>
+          
           <h4>Local business tax data API</h4> 
           <p>Use the new local business tax data REST API to create visualizations, maps or apps that help Miamians better understand their local economy and their neighborhoods.</p>
           <p><a href="https://github.com/Code-for-Miami/mdt-lbt-api">How to use the API</a></p>
@@ -99,8 +106,11 @@
           <h4>Permit data visualizations and prototypes</h4> 
           <p>Miami-Dade County has released a sample of its permitting data. Build visualizations and prototypes that demonstrate how permit data might be used.</p>
           <p><a href="https://github.com/Code-for-Miami/2013-14-Permits-Issued-Data-Set">Miami permit data set</a></p>
-          <br/>   
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <img class="featurette-image pull-left" src="images/bulb.png" alt="bulb" width="20%">  
           <h3 class="c4mblue" id="nocode"> No-Code Challenges</h3>
+          
           <h4>MiamiWiki</h4>
           <p>Help Miamians know their community better when you contribute articles, photos or your editing skills to <a href="http://localwiki.net/miami/">MiamiWiki.</a></p>
 
@@ -124,7 +134,7 @@
           <!--<img class="featurette-image pull-left" src="images/community.png" width = "200" height = "144" alt="community" />-->
            <div class="featurette">
               <h2 id="challenges" class="c4mred">Share how you #hackforchange!</h2>
-              <p> Whether you participate in a challenge or just build something awesome for Miami, we want to hear about it. Let's tell the world how Miami hacks for change!
+              <p> Whether you participate in a challenge or build something else awesome for Miami or the world, tell us how you hack for change.
             </div>
         <div class="row">
           <!--FORM-->
@@ -138,12 +148,12 @@
                   
                   <form role="form" action="https://docs.google.com/forms/d/1Jybyjg6UWjZfVU3dE88sOQeyK55pRHZVKPrhk92p2aI/formResponse" method="post"
                       target="hidden_iframe" onsubmit="submitted=true;">
-                  <label>Name (required)</label>
+                  <label>Name</label>
                       <input type="text" name="entry.1745971829" value="" class="ss-q-short" id="entry_1745971829" dir="auto" aria-label="Name  " aria-required="true" required="" title="">
                   <label>Email</label>
                       <div class="explainer">Share your email if you'd like more information about civic hacking and Code for Miami. We'll never share your address.</div>
                   <input type="email" name="entry.258822773" value="" class="ss-q-short" id="entry_258822773" dir="auto" aria-label="Email Share your email if you&#39;d like more information about civic hacking and Code for Miami. We&#39;ll never share your address. You must enter a valid email." title="You must enter a valid email.">
-                  <label>What did you #hackforchange? (required)</label>
+                  <label>What did you #hackforchange?</label>
                   <textarea name="entry.1997833140" rows="4" cols="90" class="ss-q-long" id="entry_1997833140" dir="auto" aria-label="What did you #hackforchange? Tell us what you did for National Day of Civic Hacking. " aria-required="true" required=""></textarea>
                   <input type="hidden" name="draftResponse" value="[,,&quot;2403848460224511616&quot;]
                   ">
@@ -154,9 +164,15 @@
                   </form>
         </div>
         <div class="span8">
-          <h3>Participants</h3>
-            <div id="participanttable">
-              <p>Coming soon!</p></div>
+          <h3 class="c4mblue">Our Civic Hackers</h3>
+            <table class="table table-striped">
+              <tbody id="participants">
+                <tr>
+                      <th class="c4mred">Name</th>
+                      <th class="c4mred">How I hacked for change ...</th>
+                  </tr>
+                </tbody>
+            </table>
         </div>
         </div>
 
@@ -185,30 +201,22 @@
 
     </div><!-- /.container -->
   </body>
-<!--participants-->
+<!--participants table-->
 <script type="text/javascript">
-      $.getJSON("http://cors.io/spreadsheets.google.com/feeds/list/0AtMEoZDi5-pedElCS1lrVnp0Yk1vbFdPaUlOc3F3a2c/od6/public/values?alt=json");
-      var $records = $(data),
-      myRecords = JSON.parse($records.text());
-      
-      $('#participants').dynatable({
-        dataset: {
-        records: myRecords
-        }
+$(document).ready(function() {  
+  $(function drawTable() {
+    $.getJSON( "https://spreadsheets.google.com/feeds/list/0AuLTtfQgPmpKdDRaallkcEZ4ZDFoa0VXellWWkIyMFE/od6/public/values?alt=json-in-script&callback=?",
+      function (data) {
+          $.each(data.feed.entry, function(i,entry) {
+            var item = '<td><strong>'+entry.gsx$name.$t+'</strong></td>';
+            item += '<td>' + entry.gsx$whatdidyouhackforchange.$t + '</td>';
+            $('tbody#participants').append('<tr>' + item + '</tr>');
       });
+    });
+  });
+});
 </script>
-            $.getJSON("http://cors.io/spreadsheets.google.com/feeds/list/0AtMEoZDi5-pedElCS1lrVnp0Yk1vbFdPaUlOc3F3a2c/od6/public/values?alt=json", 
-              function(data) {
-                 $.each($pars)
-                  console.log(data.feed.entry[0]['gsx$name']['$t']);
-                });
-
-
+<!--bootstrap tooltip-->
 <script src="js/bootstrap-tooltip.js"></script>
-<!--google form validation-->
-<script type='text/javascript' src='/static/forms/client/js/1331041116-formviewer_prd__en_gb.js'></script>
-<script type="text/javascript">H5F.setup(document.getElementById('ss-form'));_initFormViewer(
-          "[100,\x22#CCC\x22,[[[258822773,[[2,102,,\x22You must enter a valid email.\x22]\n]\n]\n]\n]\n]\n");
-      </script>
-</script>
+
 </html>
